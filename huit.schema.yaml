@@ -1,0 +1,296 @@
+# Rime schema
+# encoding: utf-8
+
+schema:
+  schema_id: huit # 注意此 ID 與文件名裏 .schema.yaml 之前的部分相同
+  name: huit符文      # 將在〔方案選單〕中顯示
+  version: "1.1"        # 這是文字類型而非整數或小數，如 "1.2.3"
+  author:
+    - Rime schema by 雾叶千奈/梨子
+  description:
+    huit符文。
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ huit, Latin ]
+#  - name: half_shape
+#    states: [ 半角, 全角 ]
+#    reset: 0
+#  - name: simplification
+#    states: [ 漢字, 汉字 ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - echo_translator
+    - punct_translator
+    - script_translator
+  filters:
+    - simplifier
+    - uniquifier
+
+punctuator:
+#  import_preset: default
+  half_shape:
+    "`" : "᛫"
+    "+" : "᛭"
+    ":" : "᛬"
+  full_shape:
+    "`" : "᛫"
+    "+" : "᛭"
+    ":" : "᛬" 
+
+key_binder:
+  import_preset: default
+  bindings:
+    - {accept: " ", send: "Shift+Return", when: has_menu}
+    - {accept: minus, send: minus, when: has_menu}
+    - {accept: "Return", send: " ", when: has_menu}
+    
+
+speller:
+  alphabet: "|\\ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\/"
+  delimiter: " /"
+#  algebra:
+#    - abbrev/^([bcdghjkmnpqrstvxz]).+$/$1/
+
+translator:
+  dictionary: huit
+  spelling_hints: 0
+  prism: huit
+  preedit_format:
+    - xform/ //
+    - xform/ai/ᛆᛁ/
+    - xform/ei/ᛖᛁ/
+    - xform/ui/ᚤᛁ/
+    #字母表首字母
+    - xform/^a/$1ᛆ/
+    - xform/^A/$1ᚨ/
+    - xform/^b/$1ᛒ/
+    - xform/^B/$1ᛔ/
+    - xform/^c/$1ᚴ/
+    - xform/^C/$1ᛎ/
+    - xform/^d/$1ᛑ/
+    - xform/^D/$1ᚧ/
+    - xform/^e/$1ᛖ/
+    - xform/^E/$1ᛇ/
+    - xform/^f/$1ᚠ/
+    - xform/^F/$1ᚡ/
+    - xform/^g/$1ᚵ/
+    - xform/^G/$1ᚷ/
+    - xform/^h/$1ᚼ/
+    - xform/^H/$1ᚻ/
+    - xform/^i/$1ᛁ/
+    - xform/^I/$1ᛍ/
+    - xform/^j/$1ᛨ/
+    - xform/^J/$1ᛄ/
+    - xform/^k/$1ᚴ/
+    - xform/^K/$1ᚲ/
+    - xform/^l/$1ᛚ/
+    - xform/^L/$1ᛛ/
+    - xform/^m/$1ᛘ/
+    - xform/^M/$1ᛗ/
+    - xform/^n/$1ᚿ/
+    - xform/^N/$1ᚾ/
+    - xform/^o/$1ᚮ/
+    - xform/^O/$1ᛟ/
+    - xform/^p/$1ᛔ/
+    - xform/^P/$1ᛈ/
+    - xform/^q/$1ᚵ/
+    - xform/^Q/$1ᛃ/
+    - xform/^r/$1ᚱ/
+    - xform/^R/$1ᚱ/
+    - xform/^s/$1ᛋ/
+    - xform/^S/$1ᛊ/
+    - xform/^t/$1ᛏ/
+    - xform/^T/$1ᚦ/
+    - xform/^u/$1ᚤ/
+    - xform/^U/$1ᚢ/
+    - xform/^v/$1ᚹ/
+    - xform/^V/$1ᛠ/
+    - xform/^w/$1ᚹ/
+    - xform/^W/$1ᚺ/
+    - xform/^x/$1ᛎ/
+    - xform/^X/$1ᛉ/
+    - xform/^y/$1ᛨ/
+    - xform/^Y/$1ᚣ/
+    - xform/^z/$1ᛞ/
+    - xform/^Z/$1ᛥ/
+    #字母表首字母不是\
+    - xform/([^\\])a/$1ᛆ/
+    - xform/([^\\])A/$1ᚨ/
+    - xform/([^\\])b/$1ᛒ/
+    - xform/([^\\])B/$1ᛔ/
+    - xform/([^\\])c/$1ᚴ/
+    - xform/([^\\])C/$1ᛎ/
+    - xform/([^\\])d/$1ᛑ/
+    - xform/([^\\])D/$1ᚧ/
+    - xform/([^\\])e/$1ᛖ/
+    - xform/([^\\])E/$1ᛇ/
+    - xform/([^\\])f/$1ᚠ/
+    - xform/([^\\])F/$1ᚡ/
+    - xform/([^\\])g/$1ᚵ/
+    - xform/([^\\])G/$1ᚷ/
+    - xform/([^\\])h/$1ᚼ/
+    - xform/([^\\])H/$1ᚻ/
+    - xform/([^\\])i/$1ᛁ/
+    - xform/([^\\])I/$1ᛍ/
+    - xform/([^\\])j/$1ᛨ/
+    - xform/([^\\])J/$1ᛄ/
+    - xform/([^\\])k/$1ᚴ/
+    - xform/([^\\])K/$1ᚲ/
+    - xform/([^\\])l/$1ᛚ/
+    - xform/([^\\])L/$1ᛛ/
+    - xform/([^\\])m/$1ᛘ/
+    - xform/([^\\])M/$1ᛗ/
+    - xform/([^\\])n/$1ᚿ/
+    - xform/([^\\])N/$1ᚾ/
+    - xform/([^\\])o/$1ᚮ/
+    - xform/([^\\])O/$1ᛟ/
+    - xform/([^\\])p/$1ᛔ/
+    - xform/([^\\])P/$1ᛈ/
+    - xform/([^\\])q/$1ᚵ/
+    - xform/([^\\])Q/$1ᛃ/
+    - xform/([^\\])r/$1ᚱ/
+    - xform/([^\\])R/$1ᚱ/
+    - xform/([^\\])s/$1ᛋ/
+    - xform/([^\\])S/$1ᛊ/
+    - xform/([^\\])t/$1ᛏ/
+    - xform/([^\\])T/$1ᚦ/
+    - xform/([^\\])u/$1ᚤ/
+    - xform/([^\\])U/$1ᚢ/
+    - xform/([^\\])v/$1ᚹ/
+    - xform/([^\\])V/$1ᛠ/
+    - xform/([^\\])w/$1ᚹ/
+    - xform/([^\\])W/$1ᚺ/
+    - xform/([^\\])x/$1ᛎ/
+    - xform/([^\\])X/$1ᛉ/
+    - xform/([^\\])y/$1ᛨ/
+    - xform/([^\\])Y/$1ᚣ/
+    - xform/([^\\])z/$1ᛞ/
+    - xform/([^\\])Z/$1ᛥ/
+    #特殊
+    - xform/(.*)\\a(.*)/$1ᛅ$2/
+    - xform/(.*)\\A(.*)/$1ᚭ$2/
+    - xform/(.*)\\b(.*)/$1ᛓ$2/
+    - xform/(.*)\\B(.*)/$1ᛓ$2/
+    - xform/(.*)\\c(.*)/$1ᚳ$2/
+    - xform/(.*)\\C(.*)/$1ᚳ$2/
+    - xform/(.*)\\d(.*)/$1ᛞ$2/
+    - xform/(.*)\\D(.*)/$1ᛞ$2/
+    - xform/(.*)\\e(.*)/$1ᚫ$2/
+    - xform/(.*)\\E(.*)/$1ᚽ$2/
+    - xform/(.*)\\f(.*)/$1ᚠ$2/
+    - xform/(.*)\\F(.*)/$1ᛯ$2/
+    - xform/(.*)\\g(.*)/$1ᚸ$2/
+    - xform/(.*)\\G(.*)/$1ᛤ$2/
+    - xform/(.*)\\h(.*)/$1ᚺ$2/
+    - xform/(.*)\\H(.*)/$1ᛴ$2/
+    - xform/(.*)\\i(.*)/$1ᛱ$2/
+    - xform/(.*)\\I(.*)/$1ᛱ$2/
+    - xform/(.*)\\j(.*)/$1ᛃ$2/
+    - xform/(.*)\\J(.*)/$1ᛄ$2/
+    - xform/(.*)\\k(.*)/$1ᚴ$2/
+    - xform/(.*)\\K(.*)/$1ᛡ$2/
+    - xform/(.*)\\l(.*)/$1ᛚ$2/
+    - xform/(.*)\\L(.*)/$1ᛚ$2/
+    - xform/(.*)\\m(.*)/$1ᛙ$2/
+    - xform/(.*)\\M(.*)/$1ᛙ$2/
+    - xform/(.*)\\n(.*)/$1ᛜ$2/
+    - xform/(.*)\\N(.*)/$1ᛝ$2/
+    - xform/(.*)\\o(.*)/$1ᚬ$2/
+    - xform/(.*)\\O(.*)/$1ᚭ$2/
+    - xform/(.*)\\p(.*)/$1ᛓ$2/
+    - xform/(.*)\\P(.*)/$1ᛓ$2/
+    - xform/(.*)\\q(.*)/$1ᚵ$2/
+    - xform/(.*)\\Q(.*)/$1ᚵ$2/
+    - xform/(.*)\\r(.*)/$1ᛧ$2/
+    - xform/(.*)\\R(.*)/$1ᛩ$2/
+    - xform/(.*)\\s(.*)/$1ᛌ$2/
+    - xform/(.*)\\S(.*)/$1ᛵ$2/
+    - xform/(.*)\\t(.*)/$1ᛐ$2/
+    - xform/(.*)\\T(.*)/$1ᛰ$2/
+    - xform/(.*)\\u(.*)/$1ᚩ$2/
+    - xform/(.*)\\U(.*)/$1ᚩ$2/
+    - xform/(.*)\\v(.*)/$1ᚹ$2/
+    - xform/(.*)\\V(.*)/$1ᚹ$2/
+    - xform/(.*)\\w(.*)/$1ᚹ$2/
+    - xform/(.*)\\W(.*)/$1ᚹ$2/
+    - xform/(.*)\\x(.*)/$1ᛉ$2/
+    - xform/(.*)\\X(.*)/$1ᛶ$2/
+    - xform/(.*)\\y(.*)/$1ᛄ$2/
+    - xform/(.*)\\Y(.*)/$1ᛦ$2/
+    - xform/(.*)\\z(.*)/$1ᛉ$2/
+    - xform/(.*)\\Z(.*)/$1ᛉ$2/
+    #奇数个出现的字母
+    - xform/a/ᛆ/
+    - xform/A/ᚨ/
+    - xform/b/ᛒ/
+    - xform/B/ᛔ/
+    - xform/c/ᚴ/
+    - xform/C/ᛎ/
+    - xform/d/ᛑ/
+    - xform/D/ᚧ/
+    - xform/e/ᛖ/
+    - xform/E/ᛇ/
+    - xform/f/ᚠ/
+    - xform/F/ᚡ/
+    - xform/g/ᚵ/
+    - xform/G/ᚷ/
+    - xform/h/ᚼ/
+    - xform/H/ᚻ/
+    - xform/i/ᛁ/
+    - xform/I/ᛍ/
+    - xform/j/ᛨ/
+    - xform/J/ᛄ/
+    - xform/k/ᚴ/
+    - xform/K/ᚲ/
+    - xform/l/ᛚ/
+    - xform/L/ᛛ/
+    - xform/m/ᛘ/
+    - xform/M/ᛗ/
+    - xform/n/ᚿ/
+    - xform/N/ᚾ/
+    - xform/o/ᚮ/
+    - xform/O/ᛟ/
+    - xform/p/ᛔ/
+    - xform/P/ᛈ/
+    - xform/q/ᚵ/
+    - xform/Q/ᛃ/
+    - xform/r/ᚱ/
+    - xform/R/ᚱ/
+    - xform/s/ᛋ/
+    - xform/S/ᛊ/
+    - xform/t/ᛏ/
+    - xform/T/ᚦ/
+    - xform/u/ᚤ/
+    - xform/U/ᚢ/
+    - xform/v/ᚹ/
+    - xform/V/ᛠ/
+    - xform/w/ᚹ/
+    - xform/W/ᚺ/
+    - xform/x/ᛎ/
+    - xform/X/ᛉ/
+    - xform/y/ᛨ/
+    - xform/Y/ᚣ/
+    - xform/z/ᛞ/
+    - xform/Z/ᛥ/
+    
+menu:
+  alternative_select_keys: "@"
+  page_size: 1
